@@ -1,0 +1,15 @@
+{
+  "appId": "com.translation-panel.app",
+  "productName": "Translation Panel",
+  "directories": {
+    "output": "release"
+  },
+  "files": [
+    "dist/**/*",
+    "package.json"
+  ],
+  "mac": {
+    "category": "public.app-category.productivity",
+    "entitlements": "entitlements.mac.plist"
+  }
+}
