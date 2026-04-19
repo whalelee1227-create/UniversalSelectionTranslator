@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Translation Panel</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="panel">
+      <div class="header">
+        <span class="lang-badge" id="lang-badge">EN → ZH</span>
+        <button class="close-btn" id="close-btn">×</button>
+      </div>
+      <div class="content">
+        <div class="original-section">
+          <div class="label">原文 / Original</div>
+          <div class="text original-text" id="original-text"></div>
+        </div>
+        <div class="translation-section">
+          <div class="label">翻译 / Translation</div>
+          <div class="text translation-text" id="translation-text"></div>
+        </div>
+        <div class="pronunciation-section" id="pronunciation-section" style="display: none;">
+          <div class="label">发音 / Pronunciation</div>
+          <div class="text pronunciation-text" id="pronunciation-text"></div>
+        </div>
+      </div>
+      <div class="footer">
+        <button class="copy-btn" id="copy-original">复制原文</button>
+        <button class="copy-btn primary" id="copy-translation">复制翻译</button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>
