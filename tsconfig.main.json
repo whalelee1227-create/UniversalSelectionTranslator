@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "dist/main",
-    "rootDir": "src/main",
+    "rootDir": "src",
     "resolveJsonModule": true
   },
   "include": ["src/main/**/*", "src/preload/**/*", "src/shared/**/*"]

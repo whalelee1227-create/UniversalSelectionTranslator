@@ -1,6 +1,7 @@
 import { globalShortcut } from 'electron';
 import log from 'electron-log';
-import { getSelectedText, SelectionResult } from './selection';
+import { getSelectedText } from './selection';
+import { SelectionResult } from '../shared/types';
 import { translateText } from './translation';
 import { showTranslationWindow } from './window';
 import { getSettings } from './settings';

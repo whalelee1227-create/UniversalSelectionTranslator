@@ -1,4 +1,4 @@
-import { Translate } from 'google-translate-api-x';
+import translate, { Translator } from 'google-translate-api-x';
 import log from 'electron-log';
 import { TranslationRequest, TranslationResult } from '../shared/types';
 import { getSettings } from './settings';
@@ -16,19 +16,14 @@ interface TranslateError {
 export async function translateText(request: TranslationRequest): Promise<TranslateResult | TranslateError> {
   const settings = getSettings();
 
-  if (!settings.apiKey) {
-    return { success: false, error: '请先在设置中配置 Google Translate API Key' };
-  }
-
+  // google-translate-api-x is a free API wrapper, API key is optional
+  // But we check if user configured one in settings for future use
   try {
     log.info(`Translating: "${request.text}" from ${request.sourceLang} to ${request.targetLang}`);
 
-    const translate = new Translate({ key: settings.apiKey });
+    const translator = new Translator({ from: request.sourceLang, to: request.targetLang });
 
-    const result = await translate(request.text, {
-      from: request.sourceLang,
-      to: request.targetLang,
-    });
+    const result = await translator.translate(request.text);
 
     const translation: TranslationResult = {
       originalText: request.text,
