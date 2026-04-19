@@ -1,9 +1,18 @@
 import { ipcMain, clipboard } from 'electron';
 import log from 'electron-log';
 import { getSettings, updateSettings } from './settings';
-import { hideTranslationWindow } from './window';
+import { hideTranslationWindow, onRendererReady, retranslateWithLanguages } from './window';
 
 export function registerIpcHandlers(): void {
+  ipcMain.on('renderer-ready', () => {
+    onRendererReady();
+  });
+
+  ipcMain.on('retranslate', (_event, sourceLang: string, targetLang: string) => {
+    log.info(`Retranslate requested: ${sourceLang} -> ${targetLang}`);
+    retranslateWithLanguages(sourceLang, targetLang);
+  });
+
   ipcMain.on('close-panel', () => {
     log.info('Close panel requested');
     hideTranslationWindow();

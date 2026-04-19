@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,26 +10,98 @@
   <div id="app">
     <div class="panel">
       <div class="header">
-        <span class="lang-badge" id="lang-badge">EN → ZH</span>
-        <button class="close-btn" id="close-btn">×</button>
+        <div class="lang-switch">
+          <button class="lang-btn" id="source-lang">EN</button>
+          <span class="lang-arrow">→</span>
+          <button class="lang-btn" id="target-lang">中文</button>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" id="settings-btn" title="Settings">⚙</button>
+          <button class="icon-btn" id="close-btn" title="Close">✕</button>
+        </div>
       </div>
+
       <div class="content">
-        <div class="original-section">
-          <div class="label">原文 / Original</div>
-          <div class="text original-text" id="original-text"></div>
+        <div class="text-section">
+          <div class="text-row">
+            <div class="text-content original" id="original-text"></div>
+            <button class="copy-icon" id="copy-original" title="Copy original">📋</button>
+          </div>
         </div>
-        <div class="translation-section">
-          <div class="label">翻译 / Translation</div>
-          <div class="text translation-text" id="translation-text"></div>
-        </div>
-        <div class="pronunciation-section" id="pronunciation-section" style="display: none;">
-          <div class="label">发音 / Pronunciation</div>
-          <div class="text pronunciation-text" id="pronunciation-text"></div>
+
+        <div class="divider"></div>
+
+        <div class="text-section">
+          <div class="text-row">
+            <div class="text-content translated" id="translated-text"></div>
+            <button class="copy-icon" id="copy-translated" title="Copy translation">📋</button>
+          </div>
         </div>
       </div>
-      <div class="footer">
-        <button class="copy-btn" id="copy-original">复制原文</button>
-        <button class="copy-btn primary" id="copy-translation">复制翻译</button>
+    </div>
+
+    <!-- Language Selector Modal -->
+    <div class="lang-modal hidden" id="lang-modal">
+      <div class="lang-modal-content">
+        <div class="lang-modal-header" id="modal-title">选择语言</div>
+        <div class="lang-option" data-lang="auto">自动检测</div>
+        <div class="lang-option" data-lang="en">English</div>
+        <div class="lang-option" data-lang="zh">中文</div>
+        <div class="lang-option" data-lang="ja">日本語</div>
+        <div class="lang-option" data-lang="ko">한국어</div>
+        <div class="lang-option" data-lang="fr">Français</div>
+        <div class="lang-option" data-lang="de">Deutsch</div>
+        <div class="lang-option" data-lang="es">Español</div>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay hidden" id="settings-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>设置 / Settings</h2>
+          <button class="modal-close" id="modal-close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="api-key">Google API Key</label>
+            <input type="text" id="api-key" placeholder="可选 / Optional" />
+            <div class="hint">用于 Google Cloud Translation API（付费）</div>
+          </div>
+          <div class="form-group">
+            <label for="shortcut">快捷键 / Shortcut</label>
+            <input type="text" id="shortcut" placeholder="CommandOrControl+Shift+T" />
+          </div>
+          <div class="form-group">
+            <label for="source-lang-default">默认源语言 / Default Source</label>
+            <select id="source-lang-default">
+              <option value="auto">自动检测</option>
+              <option value="en">English</option>
+              <option value="zh">中文</option>
+              <option value="ja">日本語</option>
+              <option value="ko">한국어</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="es">Español</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="target-lang-default">默认目标语言 / Default Target</label>
+            <select id="target-lang-default">
+              <option value="zh">中文</option>
+              <option value="en">English</option>
+              <option value="ja">日本語</option>
+              <option value="ko">한국어</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="es">Español</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" id="btn-cancel">取消</button>
+          <button class="btn-save" id="btn-save">保存</button>
+        </div>
       </div>
     </div>
   </div>

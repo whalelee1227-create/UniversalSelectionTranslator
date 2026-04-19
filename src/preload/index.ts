@@ -7,6 +7,16 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.on('translation-result', (_event, data) => callback(data));
   },
 
+  // Notify main that renderer is ready
+  notifyRendererReady: () => {
+    ipcRenderer.send('renderer-ready');
+  },
+
+  // Request re-translation with different languages
+  retranslate: (sourceLang: string, targetLang: string) => {
+    ipcRenderer.send('retranslate', sourceLang, targetLang);
+  },
+
   // Close translation panel
   closePanel: () => ipcRenderer.send('close-panel'),
 

@@ -21,7 +21,7 @@ export async function translateText(request: TranslationRequest): Promise<Transl
   try {
     log.info(`Translating: "${request.text}" from ${request.sourceLang} to ${request.targetLang}`);
 
-    const translator = new Translator({ from: request.sourceLang, to: request.targetLang });
+    const translator = new Translator({ from: request.sourceLang, to: request.targetLang, forceTo: true });
 
     const result = await translator.translate(request.text);
 
@@ -38,6 +38,8 @@ export async function translateText(request: TranslationRequest): Promise<Transl
     return { success: true, data: translation };
   } catch (error) {
     log.error('Translation error:', error);
-    return { success: false, error: '翻译服务出错 / Translation service error' };
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    log.error('Translation error details:', errorMessage);
+    return { success: false, error: `翻译服务出错: ${errorMessage}` };
   }
 }
