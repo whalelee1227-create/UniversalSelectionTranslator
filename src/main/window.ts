@@ -1,4 +1,5 @@
 import { screen, BrowserWindow } from 'electron';
+import path from 'path';
 import log from 'electron-log';
 import { TranslationResult } from '../shared/types';
 
@@ -19,7 +20,7 @@ export function createTranslationWindow(): BrowserWindow {
     resizable: false,
     show: false,
     webPreferences: {
-      preload: './dist/preload/index.js',
+      preload: path.join(__dirname, '..', 'preload', 'index.js'),
       contextIsolation: true,
       nodeIntegration: false,
     },
@@ -31,7 +32,7 @@ export function createTranslationWindow(): BrowserWindow {
 
   // Load the renderer HTML
   if (process.env.NODE_ENV === 'production') {
-    translationWindow.loadFile('./dist/renderer/index.html');
+    translationWindow.loadFile(path.join(__dirname, '..', '..', 'renderer', 'index.html'));
   } else {
     translationWindow.loadURL('http://localhost:5173');
   }

@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
+import path from 'path';
 import log from 'electron-log';
 import { registerShortcut, unregisterAllShortcuts } from './shortcut';
 import { createTranslationWindow, destroyTranslationWindow, showTranslationWindow } from './window';
@@ -27,7 +28,7 @@ async function createWindow(): Promise<void> {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: './dist/preload/index.js',
+      preload: path.join(__dirname, '..', 'preload', 'index.js'),
       contextIsolation: true,
       nodeIntegration: false,
     },
