@@ -1,0 +1,2 @@
+# UniversalSelectionTranslator
+选中任何词汇划词翻译
